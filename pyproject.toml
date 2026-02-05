@@ -1,0 +1,176 @@
+# ======================================================================================
+# Project metadata
+# ======================================================================================
+
+[project]
+name = "final_project"
+description = "A Multi Agent Reinforcement Learning Gym"
+requires-python = "==3.14"
+dynamic = [ "version" ]
+keywords = [ "Reinforcement Learning", "Multi-Agent", "Gym" ]
+classifiers = [
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: MacOS :: MacOS X",
+  "Operating System :: Microsoft :: Windows",
+  "Operating System :: POSIX",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+]
+authors = [ { name = "TODO: Your Name", email = "TODO: you@example.com" } ]
+maintainers = [ { name = "TODO: Your Name", email = "TODO: you@example.com" } ]
+dependencies = [
+    "numpy>=2.4.2",
+]
+
+[project.readme]
+file = "README.md"
+content-type = "text/markdown"
+
+[project.license]
+text = "MIT"
+
+
+
+# ======================================================================================
+# Build system configuration
+# ======================================================================================
+
+[build-system]
+requires = [ "hatchling", "hatch_vcs" ]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "src/final_project/_version.py"
+
+[tool.hatch.build.targets.sdist]
+exclude = [ "tests" ]
+only-packages = true
+
+[tool.hatch.build.targets.wheel]
+only-include = [ "src" ]
+sources = [ "src" ]
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+# ======================================================================================
+# Pixi configuration
+# ======================================================================================
+
+[tool.pixi.workspace]
+channels = [ "conda-forge" ]
+platforms = [ "linux-64", "osx-64", "osx-arm64", "win-64" ]
+
+[tool.pixi.dependencies]
+numpy = ">=2.4"
+prek = "*"
+pytask = "*"
+pytask-parallel = "*"
+pytest = "*"
+pytest-cov = "*"
+pytest-xdist = "*"
+ty = "*"
+
+[tool.pixi.pypi-dependencies]
+final_project = { path = ".", editable = true }
+pdbp = "*"
+
+[tool.pixi.tasks]
+ty = { cmd = "ty check", description = "Check typing" }
+
+# ======================================================================================
+# Pytask configuration
+# ======================================================================================
+
+[tool.pytask.ini_options]
+paths = [ "./src/final_project" ]
+pdbcls = "pdbp:Pdb"
+
+# ======================================================================================
+# Ruff configuration
+# ======================================================================================
+
+[tool.ruff]
+target-version = "py314"
+fix = true
+
+[tool.ruff.lint]
+select = [ "ALL" ]
+extend-ignore = [
+  "ANN",     # Missing type annotations
+  "COM812",  # Conflict with ruff-format
+  "D10",     # Missing docstrings
+  "ISC001",  # Conflict with ruff-format
+  "PLR0913", # Too many arguments in function definition
+  "RET504",  # Don't force to calculate upon return
+  "S101",    # Use of `assert` detected.
+  "S301",    # pickle module is unsafe
+  "TC001",   # Move application import into a type-checking block
+  "TC002",   # Move third-party import into a type-checking block
+  "TC003",   # Move standard library import into a type-checking block
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = [ "D", "PD011" ]
+"task_*.py" = [ "ANN", "ARG001", "S603" ]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+# ======================================================================================
+# ty configuration
+# ======================================================================================
+
+[tool.ty.environment]
+root = [ "." ]
+
+[tool.ty.src]
+include = [ "src/", "tests/" ]
+
+[tool.ty.rules]
+ambiguous-protocol-member = "error"
+deprecated = "error"
+division-by-zero = "error"
+ignore-comment-unknown-rule = "error"
+invalid-argument-type = "error"
+invalid-ignore-comment = "error"
+invalid-return-type = "error"
+possibly-missing-attribute = "error"
+possibly-missing-implicit-call = "error"
+possibly-missing-import = "error"
+possibly-unresolved-reference = "error"
+redundant-cast = "error"
+undefined-reveal = "error"
+unresolved-global = "error"
+unsupported-base = "error"
+unused-ignore-comment = "error"
+useless-overload-body = "error"
+
+# ======================================================================================
+# Miscellaneous tools configuration
+# ======================================================================================
+
+[tool.pytest.ini_options]
+addopts = "--pdbcls=pdbp:Pdb"
+filterwarnings = [  ]
+markers = [
+  "wip: Tests that are work-in-progress.",
+  "unit: Flag for unit tests which target mainly a single function.",
+  "integration: Flag for integration tests which may comprise of multiple unit tests.",
+  "end_to_end: Flag for tests that cover the whole program.",
+]
+norecursedirs = [ "docs" ]
+
+[tool.codespell]
+ignore-words = ".codespell-ignore-words"
+skip = "package-lock.json,node_modules,pixi.lock,.codespell-ignore-words"
+
+[tool.yamlfix]
+line_length = 88
+none_representation = "null"
+preserve_quotes = true
+
