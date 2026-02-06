@@ -18,7 +18,7 @@ for bad_player in (0, 3):
 
 for bad_state in ((C,), (C, 99), (99, D)):
     try:
-        TitForTat().act(bad_state, 1)
+        TitForTat().act(bad_state, 1)# type: ignore[arg-type]
         raise AssertionError("Expected ValueError for bad state")
     except ValueError:
         pass
