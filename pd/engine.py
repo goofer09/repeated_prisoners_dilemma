@@ -74,10 +74,12 @@ def rollout_episode(env,policy1,policy2,horizon):
     return trajectory,summary
 
 
-traj, summary = rollout_episode(RepeatedPrisonersDilemmaEnv(), AlwaysC(), AlwaysD(), horizon=5)
+##Example Usage
+if __name__ == "__main__":
+    traj, summary = rollout_episode(RepeatedPrisonersDilemmaEnv(), AlwaysC(), AlwaysD(), horizon=5)
 
-print("SUMMARY:", summary)
-print("FIRST 2 STEPS:")
-for row in traj[:2]:
-    print(row)
+    print("SUMMARY:", summary)
+    print("FIRST 2 STEPS:")
+    for row in traj[:2]:
+        print(row)
 
