@@ -76,7 +76,7 @@ def rollout_episode(env,policy1,policy2,horizon):
 
 ##Example Usage
 if __name__ == "__main__":
-    traj, summary = rollout_episode(RepeatedPrisonersDilemmaEnv(), AlwaysC(), AlwaysD(), horizon=5)
+    traj, summary = rollout_episode(RepeatedPrisonersDilemmaEnv(), TitForTat(), AlwaysD(), horizon=1000000)
 
     print("SUMMARY:", summary)
     print("FIRST 2 STEPS:")

@@ -13,7 +13,7 @@ Hard_Spec={
         "exp_summary":{
             "first_joint_action":(C,C),
             "steady_from":0,
-            "steady_joint_action ":(C,C),
+            "steady_joint_action":(C,C),
             "cc_count":5,
             "coop_rate":1.0,    
         },    
@@ -25,7 +25,7 @@ Hard_Spec={
         "exp_summary":{
             "first_joint_action":(D,D),
             "steady_from":0,
-            "steady_joint_action ":(D,D),
+            "steady_joint_action":(D,D),
             "cc_count":0,
             "coop_rate":0.0,    
         },    
@@ -110,14 +110,16 @@ def validate_TestCase(derived,expected_summary):
 
 
 def run_hard_check(selection):
-    keys=Hard_Spec.keys() if selection =="all" else [selection]
+    TestCase_keys=Hard_Spec.keys() if selection =="all" else [selection]
 
     report={}
-    for key in keys:
-        policy1,policy2,horizon,expected_summary=resolve_test_case(key)
+    for TestCase_key in TestCase_keys:
+        policy1,policy2,horizon,expected_summary=resolve_test_case(TestCase_key)
         trajectory,summary = rollout_episode(RepeatedPrisonersDilemmaEnv(),policy1,policy2,horizon)
         derived=analyze_traj(trajectory,summary)
         validate_TestCase(derived,expected_summary)
-        report[key]="pass"
+        report[TestCase_key]="pass"
 
     return report
+
+print(run_hard_check("all"))
