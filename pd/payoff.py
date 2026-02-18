@@ -27,9 +27,6 @@ def get_payoff(action1, action2):
     if (action1, action2) not in PD_PAYOFFS:
         raise ValueError("Invalid actions. Actions must be C (cooperate) or D (defect).")
     
-    if action1 not in (C, D) or action2 not in (C, D):
-        raise ValueError("Actions must be either C (cooperate) or D (defect).")
-    
     if (action1, action2) in PD_PAYOFFS:
         return PD_PAYOFFS[(action1, action2)]
     
